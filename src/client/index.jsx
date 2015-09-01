@@ -1,5 +1,4 @@
 var React = require('react');
-var Button = require('anx-react').Button;
 
 var TodoList = React.createClass({
 	displayName: 'TodoList',
@@ -53,7 +52,7 @@ var TodoApp = React.createClass({
 						type='text'
 						onChange={this.handleOnChange}
 						value={this.state.text} />
-					<Button text={'Add #' + (this.state.items.length + 1)} />
+					<button value={'Add #' + (this.state.items.length + 1)} />
 				</form>
 			</div>
 		);
