@@ -1,0 +1,19 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Vim garbage
+*.swp
+*.swo
+
+# Build files
+public
+
+# Dependency directory
+node_modules
+npm-debug.log
