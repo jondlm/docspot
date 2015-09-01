@@ -4,8 +4,8 @@
   "description": "A generic docs server",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js | bunyan",
-    "start-dev": "nodemon index.js | bunyan",
+    "start": "npm run build && node index.js | bunyan",
+    "start-dev": "npm run build && nodemon index.js | bunyan",
     "build": "browserify src/client/index.jsx -t babelify -o public/js/bundle.js",
     "build-dev": "watchify src/client/index.jsx -t babelify -v -d -o public/js/bundle.js",
     "test": "bunyan__level=fatal lab"
