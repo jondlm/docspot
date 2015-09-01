@@ -12,7 +12,9 @@ pids
 *.swo
 
 # Build files
-public
+public/js/*.js
+public/projects
+public/uploads
 
 # Dependency directory
 node_modules
