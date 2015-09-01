@@ -29,6 +29,7 @@
     "mkdirp": "^0.5.1",
     "nconf": "^0.7.1",
     "react": "^0.13.3",
+    "tar-fs": "^1.8.1",
     "tar.gz": "^1.0.1"
   },
   "devDependencies": {
