@@ -7,15 +7,32 @@ var mkdirp = require('mkdirp');
 var tar    = require('tar-fs');
 var path   = require('path')
 var targz  = require('tar.gz');
+var path   = require('path');
+
+var UPLOAD_DIR  = path.join(appRoot, 'public', 'uploads');
+var PROJECT_DIR = path.join(appRoot, 'public', 'projects');
 
 module.exports = {
+
+	list: function(request, reply) {
+		fs.readdir(PROJECT_DIR, function(err, files) {
+			if (err) {
+				return reply(Boom.badImplementation(err));
+			}
+
+			return reply({
+				projects: files
+			});
+		});
+	},
 
 	create: function(request, reply) {
 		var data        = request.payload;
 		var projectName = request.query.name;
 		var id          = request.query.id;
-		var uploadDir   = path.join(appRoot, 'public' ,'uploads', projectName);
-		var targetDir   = path.join(appRoot, 'public', 'projects', projectName, id);
+		var uploadDir   = path.join(UPLOAD_DIR, projectName);
+		var targetDir   = path.join(PROJECT_DIR, projectName, id);
+		var latestDir   = path.join(PROJECT_DIR, projectName, 'latest');
 
 		if (data.file) {
 			var name = data.file.hapi.filename;
@@ -51,7 +68,13 @@ module.exports = {
 						});
 
 						extract.on('end', function() {
-							return reply({message: 'Upload and extraction successful, browse to /' + projectName + '/' + id});
+							fs.symlink(targetDir, latestDir, function(err) {
+								if (err) {
+									return reply(Boom.badImplementation(err));
+								}
+
+								return reply({message: 'Upload and extraction successful, browse to /' + projectName + '/' + id + ' or /' + projectName + '/latest'});
+							});
 						});
 					});
 				});

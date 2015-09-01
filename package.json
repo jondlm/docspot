@@ -1,7 +1,7 @@
 {
-  "name": "docstpo",
+  "name": "docspot",
   "version": "0.0.1",
-  "description": "A docs server",
+  "description": "A generic docs server",
   "main": "index.js",
   "scripts": {
     "start": "node index.js | bunyan",
@@ -17,7 +17,6 @@
   "author": "Jon de la Motte <jdelamotte@appnexus.com>",
   "license": "MIT",
   "dependencies": {
-    "anx-react": "^3.0.0",
     "boom": "^2.8.0",
     "bunyan": "^1.4.0",
     "good": "^6.2.0",

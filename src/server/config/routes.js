@@ -39,8 +39,14 @@ module.exports = [
 	// -----------------------------------
 
 	{
+		method: 'GET',
+		path: '/api/projects',
+		handler: projectsController.list
+	},
+
+	{
 		method: 'POST',
-		path: '/projects',
+		path: '/api/projects',
 		handler: projectsController.create,
 		config: {
 			payload: {
