@@ -3,25 +3,23 @@
 // -----------------------------------------------------------------------------
 //
 // This should contain all the routes for your application. Keeping them in one
-// location helps on-board new developers and keeps things tidy. If your app
-// grows to be huge, it sometimes makes sense to break the routes into their
-// own files, but I wouldn't recommend it unless you have 100+ routes or so.
+// location helps on-board new developers and keeps things tidy. If this grows
+// to be huge, it sometimes makes sense to break the routes into their own
+// files, but I wouldn't recommend it unless we have 100+ routes or so.
 
 var _        = require('lodash');
 var Joi      = require('joi');
 var log      = require('../util/log');
 var settings = require('./settings');
-var CLEAN_STRING_REGEX    = /^[a-zA-Z0-9\._-]{1,255}$/;
+
+var CLEAN_STRING_REGEX = /^[a-zA-Z0-9\._-]{1,255}$/;
 
 //
 // Controllers
 // -------------------------------------
-//
-// Here we require in any controllers which export handlers that we can hook up
-// to our routes.
 
 var applicationController = require('../controllers/application-controller');
-var projectController = require('../controllers/project-controller');
+var projectsController = require('../controllers/projects-controller');
 
 // Export an array of routes
 module.exports = [
@@ -36,10 +34,14 @@ module.exports = [
 		handler: applicationController.index // This is the "what" for a given route
 	},
 
+	//
+	// Projects routes
+	// -----------------------------------
+
 	{
 		method: 'POST',
-		path: '/project',
-		handler: projectController.create,
+		path: '/projects',
+		handler: projectsController.create,
 		config: {
 			payload: {
 				output: 'stream',
@@ -60,7 +62,7 @@ module.exports = [
 	// -----------------------------------
 
 	{
-		method: '*',
+		method: 'GET',
 		path: '/{path*}',
 		handler: {
 			directory: {
@@ -68,6 +70,6 @@ module.exports = [
 				listing: true
 			}
 		}
-	},
+	}
 ];
 

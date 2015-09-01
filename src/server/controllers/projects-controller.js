@@ -15,7 +15,7 @@ module.exports = {
 		var projectName = request.query.name;
 		var id          = request.query.id;
 		var uploadDir   = path.join(appRoot, 'public' ,'uploads', projectName);
-		var targetDir   = path.join(appRoot, 'public', projectName, id);
+		var targetDir   = path.join(appRoot, 'public', 'projects', projectName, id);
 
 		if (data.file) {
 			var name = data.file.hapi.filename;
