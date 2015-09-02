@@ -19,6 +19,7 @@
   "dependencies": {
     "boom": "^2.8.0",
     "bunyan": "^1.4.0",
+    "fs-extra": "^0.24.0",
     "good": "^6.2.0",
     "good-bunyan": "0.0.1",
     "handlebars": "^3.0.3",

@@ -1,7 +1,7 @@
 'use strict';
 
 var Boom   = require('boom');
-var fs     = require('fs');
+var fs     = require('fs-extra');
 var _      = require('lodash');
 var mkdirp = require('mkdirp');
 var tar    = require('tar-fs');
@@ -68,7 +68,7 @@ module.exports = {
 						});
 
 						extract.on('end', function() {
-							fs.symlink(targetDir, latestDir, function(err) {
+							fs.ensureSymlink(targetDir, latestDir, function(err) {
 								if (err) {
 									return reply(Boom.badImplementation(err));
 								}
