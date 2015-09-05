@@ -26,6 +26,26 @@ module.exports = {
 		});
 	},
 
+	destroy: function(request, reply) {
+		var name = request.query.name;
+		var id = request.query.id;
+		var deletePath = [PROJECT_DIR, name];
+
+		if (id) {
+			deletePath.push(id);
+		}
+
+		fs.remove(path.join.apply(null, deletePath), function(err) {
+			if (err) {
+				return reply(Boom.badImplementation(err));
+			}
+
+			return reply({
+				message: path.join.apply(null, deletePath.slice(1)) + ' successfully deleted'
+			});
+		});
+	},
+
 	create: function(request, reply) {
 		var data        = request.payload;
 		var projectName = request.query.name;
@@ -36,7 +56,7 @@ module.exports = {
 
 		if (data.file) {
 			var name = data.file.hapi.filename;
-			var filename = path.join(uploadDir, id + '.tar.gz');
+			var filename = path.join(uploadDir, Date.now() + '-' + id + '.tar.gz');
 
 			if (!(_.endsWith(name, '.tar.gz') || _.endsWith(name, '.tgz'))) {
 				return reply(Boom.badData('You must upload a .tar.gz or .tgz file'));
@@ -79,6 +99,10 @@ module.exports = {
 					});
 				});
 			});
+			// Call back helllll
+			//              lllll
+			//               lllll
+			//                lllll
 
 		} else {
 			return reply(Boom.badData('Missing file, please use the "file" key for your form-data'));

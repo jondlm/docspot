@@ -2,7 +2,7 @@
 // Routes
 // -----------------------------------------------------------------------------
 //
-// This should contain all the routes for your application. Keeping them in one
+// This should contain all the routes for the application. Keeping them in one
 // location helps on-board new developers and keeps things tidy. If this grows
 // to be huge, it sometimes makes sense to break the routes into their own
 // files, but I wouldn't recommend it unless we have 100+ routes or so.
@@ -12,7 +12,11 @@ var Joi      = require('joi');
 var log      = require('../util/log');
 var settings = require('./settings');
 
-var CLEAN_STRING_REGEX = /^[a-zA-Z0-9\._-]{1,255}$/;
+var safeStingSchema = Joi
+	.string()
+	.regex(/^[a-zA-Z0-9\._-]{1,255}$/)
+	.replace('..', '-')
+	.replace('/', '-');
 
 //
 // Controllers
@@ -45,6 +49,20 @@ module.exports = [
 	},
 
 	{
+		method: 'DELETE',
+		path: '/api/projects',
+		handler: projectsController.destroy,
+		config: {
+			validate: {
+				query: Joi.object().keys({
+					name: safeStingSchema.required(),
+					id: safeStingSchema
+				}).with('id', 'name')
+			}
+		}
+	},
+
+	{
 		method: 'POST',
 		path: '/api/projects',
 		handler: projectsController.create,
@@ -56,8 +74,8 @@ module.exports = [
 			},
 			validate: {
 				query: {
-					name: Joi.string().regex(CLEAN_STRING_REGEX).required(),
-					id: Joi.string().regex(CLEAN_STRING_REGEX).required()
+					name: safeStingSchema.required(),
+					id: safeStingSchema.required()
 				}
 			}
 		}
