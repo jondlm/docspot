@@ -3,7 +3,6 @@
 var Boom   = require('boom');
 var fs     = require('fs-extra');
 var _      = require('lodash');
-var mkdirp = require('mkdirp');
 var tar    = require('tar-fs');
 var path   = require('path')
 var targz  = require('tar.gz');
@@ -15,14 +14,26 @@ var PROJECT_DIR = path.join(appRoot, 'public', 'projects');
 module.exports = {
 
 	list: function(request, reply) {
-		fs.readdir(PROJECT_DIR, function(err, files) {
+		var name = request.query.name;
+		var readPath = PROJECT_DIR;
+		var toReturn = {};
+
+		if (name) {
+			readPath = path.join(readPath, name);
+		}
+
+		fs.readdir(readPath, function(err, files) {
 			if (err) {
-				return reply(Boom.badImplementation(err));
+				return reply(Boom.notFound(name + ' was not found'));
 			}
 
-			return reply({
-				projects: files
-			});
+			if (name) {
+				toReturn.ids = files;
+			} else {
+				toReturn.projects = files;
+			}
+
+			return reply(toReturn);
 		});
 	},
 
@@ -62,7 +73,7 @@ module.exports = {
 				return reply(Boom.badData('You must upload a .tar.gz or .tgz file'));
 			}
 
-			mkdirp(uploadDir, function(err) {
+			fs.mkdirs(uploadDir, function(err) {
 				if (err) {
 					return reply(Boom.badImplementation(err));
 				}
@@ -76,7 +87,7 @@ module.exports = {
 				data.file.pipe(file);
 
 				data.file.on('end', function() {
-					mkdirp(targetDir, function(err) {
+					fs.mkdirs(targetDir, function(err) {
 						if (err) {
 							return reply(Boom.badImplementation(err));
 						}

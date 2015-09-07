@@ -12,7 +12,7 @@ var Joi      = require('joi');
 var log      = require('../util/log');
 var settings = require('./settings');
 
-var safeStingSchema = Joi
+var safeStringSchema = Joi
 	.string()
 	.regex(/^[a-zA-Z0-9\._-]{1,255}$/)
 	.replace('..', '-')
@@ -22,7 +22,6 @@ var safeStingSchema = Joi
 // Controllers
 // -------------------------------------
 
-var applicationController = require('../controllers/application-controller');
 var projectsController = require('../controllers/projects-controller');
 
 // Export an array of routes
@@ -35,7 +34,9 @@ module.exports = [
 	{
 		method: 'GET',
 		path: '/',
-		handler: applicationController.index // This is the "what" for a given route
+		handler: function(request, reply) {
+			return reply.view('index');
+		}
 	},
 
 	//
@@ -45,7 +46,14 @@ module.exports = [
 	{
 		method: 'GET',
 		path: '/api/projects',
-		handler: projectsController.list
+		handler: projectsController.list,
+		config: {
+			validate: {
+				query: {
+					name: safeStringSchema
+				}
+			}
+		}
 	},
 
 	{
@@ -55,8 +63,8 @@ module.exports = [
 		config: {
 			validate: {
 				query: Joi.object().keys({
-					name: safeStingSchema.required(),
-					id: safeStingSchema
+					name: safeStringSchema.required(),
+					id: safeStringSchema
 				}).with('id', 'name')
 			}
 		}
@@ -74,8 +82,8 @@ module.exports = [
 			},
 			validate: {
 				query: {
-					name: safeStingSchema.required(),
-					id: safeStingSchema.required()
+					name: safeStringSchema.required(),
+					id: safeStringSchema.required()
 				}
 			}
 		}
