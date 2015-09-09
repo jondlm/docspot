@@ -7,10 +7,7 @@
 // to be huge, it sometimes makes sense to break the routes into their own
 // files, but I wouldn't recommend it unless we have 100+ routes or so.
 
-var _        = require('lodash');
 var Joi      = require('joi');
-var log      = require('../util/log');
-var settings = require('./settings');
 
 var safeStringSchema = Joi
 	.string()
@@ -32,8 +29,8 @@ module.exports = [
 	// -----------------------------------
 
 	{
-		method: 'GET',
 		path: '/',
+		method: 'GET',
 		handler: function(request, reply) {
 			return reply.view('index');
 		}
@@ -44,35 +41,23 @@ module.exports = [
 	// -----------------------------------
 
 	{
-		method: 'GET',
 		path: '/api/projects',
-		handler: projectsController.list,
+		method: 'GET',
+		handler: projectsController.list
+	}, {
+		path: '/api/projects/{projectId}',
+		method: 'GET',
+		handler: projectsController.listBuilds,
 		config: {
 			validate: {
-				query: {
-					name: safeStringSchema
+				params: {
+					projectId: safeStringSchema.required(),
 				}
 			}
 		}
-	},
-
-	{
-		method: 'DELETE',
+	}, {
 		path: '/api/projects',
-		handler: projectsController.destroy,
-		config: {
-			validate: {
-				query: Joi.object().keys({
-					name: safeStringSchema.required(),
-					id: safeStringSchema
-				}).with('id', 'name')
-			}
-		}
-	},
-
-	{
 		method: 'POST',
-		path: '/api/projects',
 		handler: projectsController.create,
 		config: {
 			payload: {
@@ -81,9 +66,33 @@ module.exports = [
 				allow: 'multipart/form-data'
 			},
 			validate: {
-				query: {
-					name: safeStringSchema.required(),
-					id: safeStringSchema.required()
+				payload: {
+					file: Joi.any(),
+					projectId: safeStringSchema.required(),
+					buildId: safeStringSchema.required()
+				}
+			}
+		}
+	}, {
+		path: '/api/projects/{projectId}',
+		method: 'DELETE',
+		handler: projectsController.destroy,
+		config: {
+			validate: {
+				params: {
+					projectId: safeStringSchema.required(),
+				}
+			}
+		}
+	}, {
+		path: '/api/projects/{projectId}/builds/{buildId}',
+		method: 'DELETE',
+		handler: projectsController.destroyBuild,
+		config: {
+			validate: {
+				params: {
+					projectId: safeStringSchema.required(),
+					buildId: safeStringSchema.required()
 				}
 			}
 		}
@@ -94,8 +103,8 @@ module.exports = [
 	// -----------------------------------
 
 	{
-		method: 'GET',
 		path: '/{path*}',
+		method: 'GET',
 		handler: {
 			directory: {
 				path: 'public',

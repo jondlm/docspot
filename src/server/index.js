@@ -1,13 +1,15 @@
+'use strict';
+
 //
 // Dependencies
 // -------------------------------------
-var Hapi = require('hapi');
-var Lout = require('lout');
+var Hapi       = require('hapi');
+var Lout       = require('lout');
 var handlebars = require('handlebars');
-var routes = require('./config/routes');
-var settings = require('./config/settings');
-var log = require('./util/log');
-var path = require('path');
+var routes     = require('./config/routes');
+var settings   = require('./config/settings');
+var log        = require('./util/log');
+var path       = require('path');
 
 // Spin up the server
 var server = new Hapi.Server();
