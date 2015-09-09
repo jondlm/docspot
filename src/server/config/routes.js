@@ -1,3 +1,4 @@
+'use strict';
 //
 // Routes
 // -----------------------------------------------------------------------------
@@ -33,6 +34,12 @@ module.exports = [
 		method: 'GET',
 		handler: function(request, reply) {
 			return reply.view('index');
+		}
+	}, {
+		path: '/upload',
+		method: 'GET',
+		handler: function(request, reply) {
+			return  reply.view('upload');
 		}
 	},
 

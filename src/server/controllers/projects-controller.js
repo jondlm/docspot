@@ -121,7 +121,7 @@ module.exports = {
 									return reply(Boom.badImplementation(symlinkErr));
 								}
 
-								return reply({message: 'Upload and extraction successful, browse to /' + projectId + '/' + buildId + ' or /' + projectId + '/latest'});
+								return reply({message: 'Upload and extraction successful, browse to /projects/' + projectId + '/' + buildId + ' or /projects/' + projectId + '/latest'});
 							});
 						});
 					});
