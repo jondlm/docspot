@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js | bunyan",
     "start-dev": "nodemon index.js | bunyan",
-    "test": "bunyan__level=fatal lab"
+    "test": "bunyan__level=fatal lab -I appRoot"
   },
   "repository": {
     "type": "git",
