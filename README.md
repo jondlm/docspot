@@ -6,6 +6,8 @@ This is a small web server that allows people to POST tarballs with static
 assets and have them hosted on a server. Currently it does not have any form of
 authentication or authorization.
 
+**Be sure to visit** /documentation to see the swagger api docs.
+
 ## Creating a Tarball
 
 Suppose you have three files that comprise your docs:
