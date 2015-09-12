@@ -62,7 +62,8 @@ server.register(packs, function(err) {
 		},
 		path: path.join(__dirname, 'views'),
 		layoutPath: path.join(__dirname, 'views', 'layouts'),
-		layout: 'default'
+		layout: 'default',
+		isCached: settings.get('cacheTemplates')
 	});
 
 	//

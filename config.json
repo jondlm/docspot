@@ -4,5 +4,6 @@
     "name": "hs",
     "level": "debug"
   },
-  "apiUrl": "http://01-hbapi-sor.envnxs.net/"
+  "apiUrl": "http://01-hbapi-sor.envnxs.net/",
+  "cacheTemplates": false
 }

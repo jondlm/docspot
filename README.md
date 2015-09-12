@@ -58,3 +58,10 @@ This will upload the tarball, create or add to a project called "my-docs",
 and create or overwrite the build "1.0.0". Once you get a 200 back, you're all
 set to view them at http://localhost:8888/projects/my-docs/1.0.0
 
+## Contributing
+
+```bash
+npm install
+npm run start-dev
+npm run assets-dev
+```

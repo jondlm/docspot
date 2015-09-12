@@ -1,0 +1,51 @@
+.main-header, .main-body {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 7px 0;
+}
+
+.main-header-container {
+	box-shadow: 0 -1px 10px @color3;
+	.clearfix;
+}
+
+.main-title {
+	display: inline-block;
+	margin: 0;
+	float: left;
+
+	img {
+		width: 75px;
+		margin: 0 7px 7px 0;
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
+.main-nav {
+	display: inline-block;
+	float: right;
+	margin-top: 12px;
+
+	ul {
+		padding: 0;
+		list-style: none;
+
+		li {
+			display: inline;
+			margin-right: 10px;
+
+			a {
+				transition: 150ms background-color;
+				border-radius: 4px;
+				padding: 5px 10px;
+				border: 1px solid @color4;
+
+				&:hover {
+					color: @color5;
+					background-color: @color4;
+				}
+			}
+		}
+	}
+}

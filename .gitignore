@@ -13,6 +13,7 @@ pids
 
 # Build files
 public/js/*.js
+public/css/*.css
 public/projects
 public/uploads
 
