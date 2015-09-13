@@ -15,17 +15,30 @@
 	float: left;
 
 	img {
-		width: 75px;
+		width: 60px;
 		margin: 0 7px 7px 0;
 		display: inline-block;
 		vertical-align: middle;
+	}
+
+	.main-title-text {
+		transition: 500ms all;
+		opacity: 0;
+		margin-left: -50px;
+	}
+
+	&:hover {
+		.main-title-text {
+			opacity: 1;
+			margin-left: 0;
+		}
 	}
 }
 
 .main-nav {
 	display: inline-block;
 	float: right;
-	margin-top: 12px;
+	margin-top: 4px;
 
 	ul {
 		padding: 0;
