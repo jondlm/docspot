@@ -1,4 +1,19 @@
 {{!< layout/default}}
 
-<h2>Welcome to DocSpot</h2>
+<ul class="card-container">
+  {{#each projects}}
+    <li class="card">
+      <header class="card-title">{{projectId}}</header>
+      <div class="card-body">
+        <ul class="card-builds">
+          {{#each builds}}
+            <li>
+              <a href="/projects/{{../projectId}}/{{this}}">{{this}}</a>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    </li>
+  {{/each}}
+</ul>
 

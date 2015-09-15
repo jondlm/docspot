@@ -15,7 +15,7 @@ module.exports = {
 	 *
 	 * List all projects
 	 *
-	 * @return {Promise}
+	 * @return {Promise} - (files: array) => {}
 	 */
 	all: function() {
 		return new Promise(function(resolve, reject) {
@@ -24,7 +24,7 @@ module.exports = {
 					return reject(Boom.badImplementation(err));
 				}
 
-				return resolve({ projects: files });
+				return resolve(files);
 			});
 		});
 	},
@@ -37,7 +37,7 @@ module.exports = {
 	 * @param {string} projectId
 	 * @param {string} buildId
 	 * @param {object} data - should be the hapi payload for a multipart upload, implements readable stream
-	 * @return {Promise}
+	 * @return {Promise} - () => {}
 	 */
 	create: function(projectId, buildId, file) {
 		return new Promise(function(resolve, reject) {
@@ -84,7 +84,7 @@ module.exports = {
 										return reject(Boom.badImplementation(symlinkErr));
 									}
 
-									return resolve({message: 'Upload and extraction successful, browse to /projects/' + projectId + '/' + buildId + ' or /projects/' + projectId + '/latest'});
+									return resolve();
 								});
 							});
 						});
@@ -113,7 +113,7 @@ module.exports = {
 			 *
 			 * List all builds for the current project
 			 *
-			 * @return {Promise}
+			 * @return {Promise} - (builds: array) => {}
 			 */
 			all: function() {
 				return new Promise(function(resolve, reject) {
@@ -124,12 +124,7 @@ module.exports = {
 							return reject(Boom.notFound(projectId + ' not found'));
 						}
 
-						return resolve({
-							project: {
-								id: projectId,
-								builds: files
-							}
-						});
+						return resolve(files);
 					});
 				});
 			},
@@ -140,7 +135,7 @@ module.exports = {
 			 * Destroy the given build
 			 *
 			 * @param {string} buildId
-			 * @return {Promise}
+			 * @return {Promise} - () => {}
 			 */
 			destroy: function(buildId) {
 				return new Promise(function(resolve, reject) {
@@ -151,9 +146,7 @@ module.exports = {
 							return reject(Boom.notFound(projectId + '/' + buildId + ' was not found'));
 						}
 
-						return resolve({
-							message: projectId + '/' + buildId + ' successfully deleted'
-						});
+						return resolve();
 					});
 				});
 			}
@@ -163,8 +156,10 @@ module.exports = {
 	/**
 	 * destroy
 	 *
+	 * Destroy the given project
+	 *
 	 * @param {string} projectId
-	 * @return {Promise}
+	 * @return {Promise} - () => {}
 	 */
 	destroy: function(projectId) {
 		return new Promise(function(resolve, reject) {
@@ -175,9 +170,7 @@ module.exports = {
 					return reject(Boom.notFound(projectId + ' was not found'));
 				}
 
-				return resolve({
-					message: projectId + ' successfully deleted'
-				});
+				return resolve();
 			});
 		});
 	},

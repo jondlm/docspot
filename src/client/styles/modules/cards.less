@@ -1,0 +1,59 @@
+.card-container, .card-builds {
+	list-style: none;
+	padding: 0;
+}
+
+.card-container {
+
+	.card {
+		width: @card-width;
+		height: @card-height;
+		margin: 0 @card-spacing @card-spacing 0;
+		border: 1px solid #ccc;
+		border-radius: @card-radius;
+		box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+		float: left;
+		overflow: hidden;
+
+		.card-title {
+			height: @card-title-height;
+			font-weight: 300;
+			padding: 5px 0;
+			background-color: @color3;
+			text-align: center;
+			color: #fff;
+			font-size: 2em;
+			border-top-left-radius: @card-radius;
+			border-top-right-radius: @card-radius;
+		}
+
+		.card-body {
+			white-space: nowrap;
+			overflow: auto;
+			height: @card-height - @card-title-height;
+
+		}
+
+		.card-builds {
+			> li {
+				border-bottom: 1px solid #ccc;
+
+				> a {
+					display: block;
+					padding: 10px;
+				}
+
+				&:hover {
+					background-color: @color5;
+				}
+
+				&:last-child {
+					border-bottom: none;
+					border-bottom-left-radius: @card-radius;
+					border-bottom-right-radius: @card-radius;
+				}
+
+			}
+		}
+	}
+}

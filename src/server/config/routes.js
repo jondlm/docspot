@@ -19,6 +19,7 @@ var safeStringSchema = Joi.string()
 // Controllers
 // -------------------------------------
 
+var applicationController = require('../controllers/application-controller');
 var projectsController = require('../controllers/projects-controller');
 
 // Export an array of routes
@@ -31,14 +32,18 @@ module.exports = [
 	{
 		path: '/',
 		method: 'GET',
-		handler: function(request, reply) {
-			return reply.view('index');
-		}
+		handler: applicationController.index
 	}, {
 		path: '/upload',
 		method: 'GET',
 		handler: function(request, reply) {
-			return  reply.view('upload');
+			return reply.view('upload');
+		}
+	}, {
+		path: '/about',
+		method: 'GET',
+		handler: function(request, reply) {
+			return reply.view('about');
 		}
 	},
 
