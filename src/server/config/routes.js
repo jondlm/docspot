@@ -78,7 +78,12 @@ module.exports = [
 		handler: projectsController.create,
 		config: {
 			tags: ['api'],
-			notes: ['Create a new build given a .tar.gz file, a project ID, and build ID. If the project does not exist, it will be created.'],
+			notes: [
+				'Create a new build given a .tar.gz file, a project ID, and build ID.',
+				'If the project does not exist, it will be created. Despite what Swagger ' +
+				'says, this must be a multipart/form-data upload. If `isLatest` is set ' +
+				'to true, then the uploaded build will be symlinked to "latest".'
+			],
 			payload: {
 				output: 'stream',
 				parse: true,

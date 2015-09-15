@@ -131,7 +131,15 @@ module.exports = {
 							return reject(Boom.notFound(projectId + ' not found'));
 						}
 
-						return resolve(files);
+						var sortedFiles = files.sort();
+						var hasLatest = _.contains(sortedFiles, 'latest');
+
+						if (hasLatest) {
+							return resolve(['latest'].concat(_.without(sortedFiles, 'latest')));
+						} else {
+							return resolve(files);
+						}
+
 					});
 				});
 			},
