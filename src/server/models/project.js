@@ -36,10 +36,11 @@ module.exports = {
 	 *
 	 * @param {string} projectId
 	 * @param {string} buildId
+	 * @param {boolean} [isLatest] - if true, we'll symlink the build as the "latest"
 	 * @param {object} data - should be the hapi payload for a multipart upload, implements readable stream
 	 * @return {Promise} - () => {}
 	 */
-	create: function(projectId, buildId, file) {
+	create: function(projectId, buildId, file, isLatest) {
 		return new Promise(function(resolve, reject) {
 			var uploadDir = path.join(UPLOAD_DIR, projectId);
 			var targetDir = path.join(PROJECT_DIR, projectId, buildId);
@@ -79,13 +80,19 @@ module.exports = {
 							});
 
 							extract.on('end', function() {
-								fs.ensureSymlink(targetDir, latestDir, function(symlinkErr) {
-									if (symlinkErr) {
-										return reject(Boom.badImplementation(symlinkErr));
-									}
+								if (isLatest) {
+									fs.remove(latestDir, function() {
+										fs.ensureSymlink(targetDir, latestDir, function(symlinkErr) {
+											if (symlinkErr) {
+												return reject(Boom.badImplementation(symlinkErr));
+											}
 
+											return resolve();
+										});
+									});
+								} else {
 									return resolve();
-								});
+								}
 							});
 						});
 					});

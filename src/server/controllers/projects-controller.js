@@ -50,10 +50,11 @@ module.exports = {
 		var file      = request.payload.file;
 		var projectId = request.payload.projectId;
 		var buildId   = request.payload.buildId;
+		var isLatest  = request.payload.isLatest; // optional
 
-		Project.create(projectId, buildId, file).then(function() {
+		Project.create(projectId, buildId, file, isLatest).then(function() {
 			return reply({
-				message: 'Upload and extraction successful, browse to /projects/' + projectId + '/' + buildId + ' or /projects/' + projectId + '/latest'
+				message: 'Upload and extraction successful, browse to /projects/' + projectId + '/' + buildId
 			});
 		}, reply);
 	}

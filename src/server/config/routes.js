@@ -88,7 +88,8 @@ module.exports = [
 				payload: {
 					file: Joi.any().required(),
 					projectId: safeStringSchema.required(),
-					buildId: safeStringSchema.required()
+					buildId: safeStringSchema.required(),
+					isLatest: Joi.boolean()
 				}
 			}
 		}
