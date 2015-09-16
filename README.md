@@ -65,3 +65,9 @@ npm install
 npm run start-dev
 npm run assets-dev
 ```
+
+## Tests
+
+```bash
+npm test
+```
