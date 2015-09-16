@@ -1,8 +1,16 @@
 {{!< layout/default}}
 <h2>Upload build</h2>
+<p>Use this form to upload a documentation tarball (.tar.gz or .tgz). While this
+form is available, I'd really suggest using "curl" to upload your docs. It's
+much better for integration with your build process.</p>
+
 <form action="/api/projects" method="POST" enctype="multipart/form-data">
-  <input type="text" name="projectId" placeholder="Project ID" />
-  <input type="text" name="buildId" placeholder="Build ID" />
-  <input type="file" name="file" />
-  <input type="submit" />
+  <input type="text" name="projectId" required placeholder="Project ID" />
+  <input type="text" name="buildId" required placeholder="Build ID" />
+  <div class="form-group">
+    <input type="checkbox" id="isLatest" name="isLatest" />
+    <label for="isLatest">Link as "latest"</label>
+  </div>
+  <input type="file" required name="file" />
+  <input class="button" type="submit" value="Submit" />
 </form>

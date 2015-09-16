@@ -22,6 +22,8 @@
 @import 'src/client/styles/modules/typography.less';
 @import 'src/client/styles/modules/header.less';
 @import 'src/client/styles/modules/cards.less';
+@import 'src/client/styles/modules/forms.less';
+@import 'src/client/styles/modules/buttons.less';
 
 //
 // Globals
@@ -35,6 +37,11 @@ html, body {
 
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+*:focus {
+	outline: none;
+	box-shadow: 0 0 5px 1px @color1;
 }
 
 
