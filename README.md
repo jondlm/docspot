@@ -2,7 +2,7 @@
 <img style="width: 45px;" src="https://cdn.rawgit.com/jondlm/docspot/master/public/img/logo.svg" /> DocSpot
 </h1>
 
-All your docs are belong to DocSpot.
+All your docs are belong to DocSpot. It's like your own internal GitHub pages.
 
 This is a small web server that allows people to POST tarballs with static
 assets and have them hosted on a server. Currently it does not have any form of
