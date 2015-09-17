@@ -1,19 +1,24 @@
 {{!< layout/default}}
 
-<ul class="card-container">
-  {{#each projects}}
-    <li class="card">
-      <header class="card-title">{{projectId}}</header>
-      <div class="card-body">
-        <ul class="card-builds">
-          {{#each builds}}
-            <li>
-              <a href="/projects/{{../projectId}}/{{this}}">{{this}}</a>
-            </li>
-          {{/each}}
-        </ul>
-      </div>
-    </li>
-  {{/each}}
-</ul>
+{{#if projects.length}}
+  <ul class="card-container">
+    {{#each projects}}
+      <li class="card">
+        <header class="card-title">{{projectId}}</header>
+        <div class="card-body">
+          <ul class="card-builds">
+            {{#each builds}}
+              <li>
+                <a href="/projects/{{../projectId}}/{{this}}">{{this}}</a>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <h2>No projects found</h2>
+  <p>Start by uploading some by POSTing tarballs to /api/projects</p>
+{{/if}}
 
