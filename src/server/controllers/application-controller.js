@@ -6,7 +6,6 @@ var Project = require('../models/project');
 module.exports = {
 
 	index: function(request, reply) {
-		var result = [];
 
 		Project.all().then(function(projectIds) {
 			var buildPromises = _.map(projectIds, function(projectId) {
@@ -15,15 +14,15 @@ module.exports = {
 						projectId: projectId,
 						builds: buildIds
 					};
-				});
+				}, reply);
 			});
 
 			Promise.all(buildPromises).then(function(result) {
 				return reply.view('index', {
 					projects: result
 				});
-			});
-		});
+			}, reply);
+		}, reply);
 
 	}
 

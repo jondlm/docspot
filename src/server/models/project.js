@@ -24,7 +24,11 @@ module.exports = {
 					return reject(Boom.badImplementation(err));
 				}
 
-				return resolve(files);
+				var folders = _.filter(files, function(file) {
+					return file !== '.gitkeep';
+				});
+
+				return resolve(folders);
 			});
 		});
 	},
@@ -127,8 +131,12 @@ module.exports = {
 					var readPath = path.join(PROJECT_DIR, projectId);
 
 					fs.readdir(readPath, function(err, files) {
+						if (_.get(err, 'code') === 'ENOTDIR') {
+							return reject(Boom.badImplementation(projectId + ' is not a directory'));
+						}
+
 						if (err) {
-							return reject(Boom.notFound(projectId + ' not found'));
+							return reject(Boom.notFound(projectId + ' was not found'));
 						}
 
 						var sortedFiles = files.sort();
