@@ -14,8 +14,10 @@ pids
 # Build files
 public/js/*.js
 public/css/*.css
-public/projects
-public/uploads
+public/projects/*/
+!public/projects/.gitkeep
+public/uploads/*/
+!public/uploads/.gitkeep
 
 # Dependency directory
 node_modules
