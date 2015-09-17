@@ -1,5 +1,5 @@
 <h1>
-<img src="https://raw.github.com/jondlm/docspot/master/public/img/logo.svg" /> DocSpot
+<img style="width: 45px;" src="https://cdn.rawgit.com/jondlm/docspot/master/public/img/logo.svg" /> DocSpot
 </h1>
 
 All your docs are belong to DocSpot.
