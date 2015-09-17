@@ -39,12 +39,6 @@ module.exports = [
 		handler: function(request, reply) {
 			return reply.view('upload');
 		}
-	}, {
-		path: '/about',
-		method: 'GET',
-		handler: function(request, reply) {
-			return reply.view('about');
-		}
 	},
 
 	//

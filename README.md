@@ -4,11 +4,21 @@ All your docs are belong to DocSpot.
 
 This is a small web server that allows people to POST tarballs with static
 assets and have them hosted on a server. Currently it does not have any form of
-authentication or authorization.
+authentication or authorization. **Be sure to visit** /documentation to see the
+api docs.
 
-**Be sure to visit** /documentation to see the swagger api docs.
+## Getting Started
 
-## Creating a Tarball
+```bash
+npm install
+npm run assets
+npm start
+# visit localhost:8888
+```
+
+Edit the `config.json` file and restart the server to tweak settings.
+
+## Creating and Uploading a Tarball
 
 Suppose you have three files that comprise your docs:
 
@@ -42,7 +52,7 @@ folders. For example, let's tar up files in preparation to send them to DocSpot:
 
 ```bash
 cd my-docs
-tar -czf my-docs-v1.tar.gz *
+tar -czf my-docs.tar.gz *
 ```
 
 Now let's upload them with `curl`:
@@ -54,11 +64,21 @@ curl 'http://localhost:8888/api/projects' \
   --form buildId=1.0.0
 ```
 
-This will upload the tarball, create or add to a project called "my-docs",
-and create or overwrite the build "1.0.0". Once you get a 200 back, you're all
-set to view them at http://localhost:8888/projects/my-docs/1.0.0
+This will upload the tarball, create or add a project called "my-docs", and
+create or overwrite the build "1.0.0". Once you get a 200 back, you're all set
+to view them at http://localhost:8888/projects/my-docs/1.0.0
 
 ## Contributing
+
+First of all, thank you for contributing. It’s appreciated.
+
+1. Clone the repo and install dependencies with `npm install`.
+2. Make a GitHub issue before doing significant amount of work.
+3. Run `npm test` to lint and test. Don’t commit before fixing all errors and warnings.
+4. Reference the issue’s number in your commit. E.g.: “Did this #12”
+5. Make a pull request.
+
+You can use these commands to run the server in dev mode:
 
 ```bash
 npm install
@@ -66,8 +86,7 @@ npm run start-dev
 npm run assets-dev
 ```
 
-## Tests
+Credit to [cycle.js] for the contributing guidelines.
 
-```bash
-npm test
-```
+[cycle.js]: https://github.com/cyclejs/cycle-core/blob/master/CONTRIBUTING.md
+
