@@ -1,4 +1,6 @@
-# DocSpot
+<h1>
+<img src="https://raw.github.com/jondlm/docspot/master/public/img/logo.svg" /> DocSpot
+</h1>
 
 All your docs are belong to DocSpot.
 
