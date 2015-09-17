@@ -4,11 +4,12 @@
   "description": "A generic docs server",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js | bunyan",
-    "start-dev": "nodemon index.js | bunyan",
     "assets": "gulp",
     "assets-dev": "gulp watch",
-    "test": "bunyan__level=fatal lab -I appRoot"
+    "start": "node index.js | bunyan",
+    "start-dev": "nodemon index.js | bunyan",
+    "lint": "eslint src",
+    "test": "bunyan__level=fatal lab -I appRoot && npm run lint"
   },
   "repository": {
     "type": "git",

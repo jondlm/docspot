@@ -8,7 +8,7 @@
 	},
 	"rules": {
 		"quotes": [1, "single"],
-		"comma-dangle": true,
-		"no-multi-spaces": false
+		"comma-dangle": 0,
+		"no-multi-spaces": 0
 	}
 }
