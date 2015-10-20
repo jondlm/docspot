@@ -90,6 +90,11 @@ module.exports = [
 					buildId: safeStringSchema.required(),
 					isLatest: Joi.boolean()
 				}
+			},
+			plugins: {
+				'hapi-swagger': {
+					payloadType: 'form'
+				}
 			}
 		}
 	}, {
