@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:jondlm/docspot.git"
   },
   "author": "Jon de la Motte <jdelamotte@appnexus.com>",
   "license": "MIT",
