@@ -1,0 +1,77 @@
+Summary: docspot
+Name: docspot
+Version: ${TAG}
+Release: 1
+License: AppNexus, Inc.
+Group: Applications/Internet
+Source: docspot-${TAG}.tgz
+URL: ssh://git@stash.corp.appnexus.com:7999/ui-shared/app_docspot.git
+Vendor: AppNexus, Inc.
+Packager: Jon de la Motte <jdelamotte@appnexus.com>
+
+BuildRequires: gcc
+BuildRequires: gcc-c++
+BuildRequires: nodejs >= 0.12.2
+BuildRequires: nodejs-npm >= 0.12.2
+
+Requires: nodejs >= 0.12.2
+Requires: nodejs-npm >= 0.12.2
+
+%description
+docspot
+
+######################################################################
+# Build Time Steps (executed on the rpm build worker machine)
+######################################################################
+
+%prep
+
+%setup -q
+
+%build
+npm install
+npm run assets
+npm prune --production
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%install
+install -d $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}
+mkdir -p $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}/config
+echo ${TAG} > $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}/config/version
+
+cp package.json $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}
+cp index.js $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}
+
+for dir in config node_modules public src bin; do
+    test -d $dir && cp -r $dir $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}
+done
+
+# init.d service script
+install -d $RPM_BUILD_ROOT/etc/init.d
+install -m 0755 bin/express-base.sh $RPM_BUILD_ROOT/etc/init.d/express-base
+
+install -d $RPM_BUILD_ROOT/var/log/adnexus/sor-ui-server
+install -d $RPM_BUILD_ROOT/etc/init.d
+install -m 0755 sor-ui-server.init $RPM_BUILD_ROOT/etc/init.d/sor-ui-server
+
+%pre
+# create console group
+/usr/bin/getent group console > /dev/null || /usr/sbin/groupadd -r console
+# create sorui user
+/usr/bin/getent passwd sorui > /dev/null || /usr/sbin/useradd -r -g console -d /usr/local/adnxs/sor-ui-server -s /bin/bash -c "sor-ui-server" sorui ||:
+
+%post
+# Make sure all log files are writeable
+chown -R sorui:console /var/log/adnexus/sor-ui-server
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,sorui,console,-)
+%dir /var/log/adnexus/sor-ui-server
+%dir /usr/local/adnxs/sor-ui-server
+/usr/local/adnxs/sor-ui-server/${TAG}
+%config %attr(-,root,root) /etc/init.d/sor-ui-server

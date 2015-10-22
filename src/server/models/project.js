@@ -6,8 +6,8 @@ var path  = require('path');
 var Boom  = require('boom');
 var targz = require('tar.gz');
 
-var UPLOAD_DIR  = path.join(appRoot, 'public', 'uploads');
-var PROJECT_DIR = path.join(appRoot, 'public', 'projects');
+var UPLOAD_DIR  = path.resolve(__dirname, '..', '..', '..', 'public', 'uploads');
+var PROJECT_DIR = path.resolve(__dirname, '..', '..', '..', 'public', 'projects');
 
 module.exports = {
 	/**

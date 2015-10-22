@@ -2,14 +2,14 @@
   "name": "docspot",
   "version": "1.0.6",
   "description": "A generic docs server",
-  "main": "index.js",
+  "main": "./bin/start.js",
   "scripts": {
-    "assets": "gulp",
-    "assets-dev": "gulp watch",
-    "start": "node index.js | bunyan",
-    "start-dev": "nodemon index.js | bunyan",
+    "build": "gulp",
+    "build-dev": "gulp watch",
+    "start": "./bin/start.js | bunyan",
+    "start-dev": "nodemon ./bin/start.js | bunyan",
     "lint": "eslint src",
-    "test": "bunyan__level=fatal lab -I appRoot && npm run lint"
+    "test": "bunyan__level=fatal lab && npm run lint"
   },
   "repository": {
     "type": "git",
