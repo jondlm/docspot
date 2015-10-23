@@ -20,21 +20,26 @@ Requires: nodejs-npm >= 0.12.2
 %description
 docspot
 
+
 ######################################################################
 # Build Time Steps (executed on the rpm build worker machine)
 ######################################################################
 
 %prep
 
+
 %setup -q
+
 
 %build
 npm install
-npm run assets
+npm run build
 npm prune --production
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %install
 install -d $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}
@@ -50,28 +55,49 @@ done
 
 # init.d service script
 install -d $RPM_BUILD_ROOT/etc/init.d
-install -m 0755 bin/express-base.sh $RPM_BUILD_ROOT/etc/init.d/express-base
+install -m 0755 bin/docspot.sh $RPM_BUILD_ROOT/etc/init.d/docspot
 
-install -d $RPM_BUILD_ROOT/var/log/adnexus/sor-ui-server
-install -d $RPM_BUILD_ROOT/etc/init.d
-install -m 0755 sor-ui-server.init $RPM_BUILD_ROOT/etc/init.d/sor-ui-server
+# log directory
+install -d $RPM_BUILD_ROOT/var/log/adnexus/docspot
+
+
+######################################################################
+# Install time steps (executed on the application server machine)
+######################################################################
 
 %pre
-# create console group
-/usr/bin/getent group console > /dev/null || /usr/sbin/groupadd -r console
-# create sorui user
-/usr/bin/getent passwd sorui > /dev/null || /usr/sbin/useradd -r -g console -d /usr/local/adnxs/sor-ui-server -s /bin/bash -c "sor-ui-server" sorui ||:
+# create resin user and group
+/usr/bin/getent group resin > /dev/null || /usr/sbin/groupadd -r resin
+/usr/bin/getent passwd resin > /dev/null || /usr/sbin/useradd -r -g resin -d /usr/local/adnxs/express-base -s /bin/bash -c "docspot" resin ||:
+
 
 %post
 # Make sure all log files are writeable
-chown -R sorui:console /var/log/adnexus/sor-ui-server
+chown -R resin:resin /var/log/adnexus/docspot
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+# Update symlink to the new version
+ln -sfn /usr/local/adnxs/docspot/${TAG} /usr/local/adnxs/docspot/current
+chown -h resin:resin /usr/local/adnxs/docspot/current
+
+# Make sure service is restarted if already running (this needs to happen before the old files are removed)
+sudo service docspot status && sudo service docspot restart
+
+
+%preun
+# stop service when uninstalling [http://stackoverflow.com/questions/8854882]
+if [ "$1" == "0" ]; then
+    sudo service docspot stop
+fi
+
+
+%postun
+# Delete any files puppet has placed (newrelic.js)
+rm -rf /usr/local/adnxs/docspot/${TAG}
+
 
 %files
-%defattr(-,sorui,console,-)
-%dir /var/log/adnexus/sor-ui-server
-%dir /usr/local/adnxs/sor-ui-server
-/usr/local/adnxs/sor-ui-server/${TAG}
-%config %attr(-,root,root) /etc/init.d/sor-ui-server
+%defattr(-,resin,resin,-)
+%dir /var/log/adnexus/docspot
+%dir /usr/local/adnxs/docspot
+/usr/local/adnxs/docspot/${TAG}
+%config %attr(-,root,root) /etc/init.d/docspot
