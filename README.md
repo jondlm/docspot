@@ -18,7 +18,7 @@ npm start
 # visit localhost:8888
 ```
 
-Edit the `config.json` file and restart the server to tweak settings.
+Edit the `env.json` file and restart the server to tweak settings.
 
 ## Creating and Uploading a Tarball
 

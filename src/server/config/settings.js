@@ -10,7 +10,7 @@ var nconf = require('nconf');
 // override specific settings with environment variables, e.g. `port=8899`. Use
 // the bash friendly `__` to denote object depth.
 nconf.env({ separator: '__' }) // underscores are better than colons for unix
-	.defaults(require('../../../config/config.json'));
+	.defaults(require('../../../config/env.json'));
 
 //
 // Export the nconf object
