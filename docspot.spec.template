@@ -47,7 +47,6 @@ mkdir -p $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}/config
 echo ${TAG} > $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}/config/version
 
 cp package.json $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}
-cp index.js $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}
 
 for dir in config node_modules public src bin; do
     test -d $dir && cp -r $dir $RPM_BUILD_ROOT/usr/local/adnxs/docspot/${TAG}
