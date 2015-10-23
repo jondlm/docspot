@@ -1,6 +1,6 @@
 {
   "name": "docspot",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "A generic docs server",
   "main": "./bin/start.js",
   "scripts": {
