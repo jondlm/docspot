@@ -67,7 +67,7 @@ install -d $RPM_BUILD_ROOT/var/log/adnexus/docspot
 %pre
 # create resin user and group
 /usr/bin/getent group resin > /dev/null || /usr/sbin/groupadd -r resin
-/usr/bin/getent passwd resin > /dev/null || /usr/sbin/useradd -r -g resin -d /usr/local/adnxs/express-base -s /bin/bash -c "docspot" resin ||:
+/usr/bin/getent passwd resin > /dev/null || /usr/sbin/useradd -r -g resin -d /usr/local/adnxs/docspot -s /bin/bash -c "docspot" resin ||:
 
 
 %post
