@@ -86,7 +86,7 @@ describe('set of tests', function () {
 				};
 
 				server.inject(staticAssetsReq, function (res2) {
-					assert.equal(res2.statusCode, 200, 'Failed to retrieve the static file that should have been uploaded, you should delete the following project that is now cruft: ' + randomName);
+					assert.equal(res2.statusCode, 299, 'Failed to retrieve the static file that should have been uploaded, you should delete the following project that is now cruft: ' + randomName);
 					assert.equal(JSON.parse(res2.payload).test, 'successful');
 
 					var deleteReq = {
