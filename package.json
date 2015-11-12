@@ -43,5 +43,8 @@
     "gulp-plumber": "^1.0.1",
     "lab": "^5.11.1",
     "nodemon": "^1.4.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.corp.appnexus.com"
   }
 }

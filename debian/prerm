@@ -1,0 +1,5 @@
+#!/bin/bash
+# stop service when uninstalling [http://stackoverflow.com/questions/8854882]
+if [ "$1" == "0" ]; then
+    sudo service docspot stop
+fi
