@@ -4,7 +4,6 @@
 # Figure out the version by looking at the changelog
 DEBVERS := $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
 VERSION := $(shell echo '$(DEBVERS)' | sed -e 's/^[[:digit:]]*://' -e 's/[~-].*//')
-VERSION := $(shell echo '$(DEBVERS)' | sed -e 's/^[[:digit:]]*://' -e 's/[~-].*//')
 DESTDIR :=$(CURDIR)/debian/docspot
 
 # See http://stackoverflow.com/questions/7459644/why-is-dh-usrlocal-throwing-a-build-error 
