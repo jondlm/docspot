@@ -5,6 +5,7 @@ logs
 # Runtime data
 pids
 *.pid
+*.pid.lock
 *.seed
 
 # Vim garbage

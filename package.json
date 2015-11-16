@@ -2,12 +2,12 @@
   "name": "docspot",
   "version": "1.0.17",
   "description": "A generic docs server",
-  "main": "./bin/start.js",
+  "main": "./app.js",
   "scripts": {
     "build": "gulp",
     "build-dev": "gulp watch",
-    "start": "./bin/start.js | bunyan",
-    "start-dev": "nodemon ./bin/start.js | bunyan",
+    "start": "node ./app.js | bunyan",
+    "start-dev": "nodemon ./start.js | bunyan",
     "lint": "eslint src",
     "test": "bunyan__level=fatal lab && npm run lint"
   },

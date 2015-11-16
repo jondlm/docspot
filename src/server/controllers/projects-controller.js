@@ -54,7 +54,7 @@ module.exports = {
 
 		Project.create(projectId, buildId, file, isLatest).then(function() {
 			return reply({
-				message: 'Upload and extraction successful, browse to /public/projects/' + projectId + '/' + buildId
+				message: 'Upload and extraction successful, browse to /projects/' + projectId + '/' + buildId
 			});
 		}, reply);
 	}
