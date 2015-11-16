@@ -4,9 +4,9 @@
 # Figure out the version by looking at the changelog
 DEBVERS := $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
 VERSION := $(shell echo '$(DEBVERS)' | sed -e 's/^[[:digit:]]*://' -e 's/[~-].*//')
-DESTDIR :=$(CURDIR)/debian/docspot
+DESTDIR := $(CURDIR)/debian/docspot
 
-# See http://stackoverflow.com/questions/7459644/why-is-dh-usrlocal-throwing-a-build-error 
+# See http://stackoverflow.com/questions/7459644/why-is-dh-usrlocal-throwing-a-build-error
 # Packages normally aren't supposed to put files under /usr/local/, but since that's AppNexus convention
 # carrying over from CentOS, we skip this check
 override_dh_usrlocal:
@@ -26,21 +26,18 @@ override_dh_auto_install:
 	echo $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)/config/version
 
 	cp package.json $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
+	cp app.js $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
 
-	for dir in config node_modules public src bin; do \
+	for dir in config node_modules public src; do \
 		test -d $$dir && cp -r $$dir $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION); \
 	done
 
-	# init.d service script
-	install -d $(DESTDIR)/etc/init.d
-	install -m 0755 bin/docspot.sh $(DESTDIR)/etc/init.d/docspot
-
 	# log directory
 	install -d $(DESTDIR)/var/log/adnexus/docspot
-	
+
 	# symlink
 	ln -sfn /usr/local/adnxs/docspot/$(DESTDIR)/usr/local/adnxs/docspot/current
 
 %:
 	# Run debhelper defaults on the other targets
-	dh $@ 
+	dh $@

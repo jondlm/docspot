@@ -11,5 +11,6 @@ Build-Depends:  build-essential,
 Package: docspot
 Architecture: any
 Depends: nodejs (>= 4),
+ passenger (>= 5)
 Description: docspot
  AppNexus documentation hosting application

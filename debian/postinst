@@ -5,6 +5,4 @@
 # Make sure all log files are writeable
 chown -R resin:resin /var/log/adnexus/docspot
 
-# Make sure service is restarted if already running (this needs to happen before the old files are removed)
-sudo service docspot status && sudo service docspot restart
 exit 0;
