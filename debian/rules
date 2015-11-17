@@ -23,7 +23,6 @@ build:
 override_dh_auto_install:
 	install -d $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
 	mkdir -p $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)/config
-	echo $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)/config/version
 
 	cp package.json $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
 	cp app.js $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
@@ -35,8 +34,8 @@ override_dh_auto_install:
 	# log directory
 	install -d $(DESTDIR)/var/log/adnexus/docspot
 
-	# symlink
-	ln -sfn /usr/local/adnxs/docspot/$(DESTDIR)/usr/local/adnxs/docspot/current
+	# symlink current
+	ln -sfn /usr/local/adnxs/docspot/$(VERSION) $(DESTDIR)/usr/local/adnxs/docspot/current
 
 %:
 	# Run debhelper defaults on the other targets
