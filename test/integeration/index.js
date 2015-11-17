@@ -8,7 +8,7 @@ var it = lab.it;
 var fs = require('fs');
 var FormData = require('form-data');
 
-var server = require('../../bin/start');
+var server = require('../../app.js');
 
 var projectsSchema = Joi.object().keys({
 	projects: Joi.array().items(Joi.string())
