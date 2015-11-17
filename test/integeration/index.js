@@ -81,7 +81,7 @@ describe('set of tests', function () {
 				assert.equal(res.statusCode, 200);
 
 				var staticAssetsReq = {
-					url: '/public/projects/' + randomName + '/test/test.json',
+					url: '/projects/' + randomName + '/test/test.json',
 					method: 'get'
 				};
 

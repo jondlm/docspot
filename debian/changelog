@@ -1,0 +1,5 @@
+docspot (0.1) stable; urgency=low
+
+  * Initial Debian Build of docspot.
+
+ -- David Iserovich <diserovich@appnexus.com>  Wed, 11 Nov 2015 16:24:00 -0400

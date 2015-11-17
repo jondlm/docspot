@@ -1,0 +1,8 @@
+#!/bin/bash
+/usr/bin/getent group resin > /dev/null || /usr/sbin/groupadd -r resin
+/usr/bin/getent passwd resin > /dev/null || /usr/sbin/useradd -r -g resin -d /usr/local/adnxs/docspot -s /bin/bash -c "docspot" resin
+
+# Make sure all log files are writeable
+chown -R resin:resin /var/log/adnexus/docspot
+
+exit 0;

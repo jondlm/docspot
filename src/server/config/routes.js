@@ -131,7 +131,7 @@ module.exports = [
 	// -----------------------------------
 
 	{
-		path: '/public/{path*}',
+		path: '/{path*}',
 		method: 'GET',
 		handler: {
 			directory: {
