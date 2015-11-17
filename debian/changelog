@@ -1,3 +1,9 @@
+docspot (2.0.0) stable; urgency=low
+
+  * Resin bump
+
+ -- Mark Watney <jdelamotte@appnexus.com>  Tue, 17 Nov 2015 08:42:51 -0800
+
 docspot (0.1) stable; urgency=low
 
   * Initial Debian Build of docspot.
