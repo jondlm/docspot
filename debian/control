@@ -6,11 +6,13 @@ Build-Depends:  build-essential,
  debhelper (>= 8.0.0),
  dh-autoreconf,
  nodejs (>= 4),
+ nodejs-legacy,
  appnexus-ca
 
 Package: docspot
 Architecture: any
 Depends: nodejs (>= 4),
+ nodejs-legacy,
  passenger (>= 5)
 Description: docspot
  AppNexus documentation hosting application
