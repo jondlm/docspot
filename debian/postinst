@@ -1,6 +1,9 @@
 #!/bin/bash
-/usr/bin/getent group resin > /dev/null || /usr/sbin/groupadd -r resin
-/usr/bin/getent passwd resin > /dev/null || /usr/sbin/useradd -r -g resin -d /usr/local/adnxs/docspot -s /bin/bash -c "docspot" resin
+
+# User and group ids under 500 are not touched by DRT-driven accts
+# id = 100 + reduce(lambda i,c': ' i + ord(c) - ord('a') + 1, "resin", 0) # Sum of the alphabetic numbers of "resin" + the minimum package-set userid in Linux = 165
+/usr/bin/getent group resin > /dev/null || /usr/sbin/groupadd -g 165 -r resin
+/usr/bin/getent passwd resin > /dev/null || /usr/sbin/useradd -u 165 -r -g resin -d /usr/local/adnxs/docspot -s /bin/bash -c "docspot" resin
 
 # Make sure all log files are writeable
 chown -R resin:resin /var/log/adnexus/docspot
