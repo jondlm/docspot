@@ -1,3 +1,9 @@
+docspot (2.0.2) stable; urgency=low
+
+  * Resin bump
+
+ -- Mark Watney <jdelamotte@appnexus.com>  Wed, 02 Dec 2015 14:17:43 -0800
+
 docspot (2.0.1) stable; urgency=low
 
   * Resin bump
