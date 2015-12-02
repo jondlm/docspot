@@ -20,6 +20,7 @@ var server = new Hapi.Server();
 
 // Apply connection settings to the server
 server.connection({
+	host: '0.0.0.0',
 	port: settings.get('port')
 });
 
