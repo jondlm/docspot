@@ -1,5 +1,4 @@
 {
   "version": "2.0.2",
-  "bumpBranch": "master",
-  "maestroName": "docspot"
+  "bumpBranch": "master"
 }
