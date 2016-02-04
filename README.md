@@ -84,8 +84,8 @@ You can use these commands to run the server in dev mode:
 
 ```bash
 npm install
-npm run start-dev  # run in one terminal window
-npm run assets-dev # run in another terminal window
+npm run build-dev  # run in one terminal window
+npm run start-dev  # run in another terminal window
 ```
 
 Credit to [cycle.js] for the contributing guidelines.
