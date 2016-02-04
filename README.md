@@ -13,9 +13,9 @@ api docs.
 
 ```bash
 npm install
-npm run assets
+npm run build
 npm start
-# visit localhost:8888
+# visit localhost:3000
 ```
 
 Edit the `env.json` file and restart the server to tweak settings.
@@ -60,7 +60,7 @@ tar -czf my-docs.tar.gz *
 Now let's upload them with `curl`:
 
 ```bash
-curl 'http://localhost:8888/api/projects' \
+curl 'http://localhost:3000/api/projects' \
   --form file=@my-docs.tar.gz \
   --form projectId=my-docs \
   --form buildId=1.0.0
@@ -68,7 +68,7 @@ curl 'http://localhost:8888/api/projects' \
 
 This will upload the tarball, create or add a project called "my-docs", and
 create or overwrite the build "1.0.0". Once you get a 200 back, you're all set
-to view them at http://localhost:8888/projects/my-docs/1.0.0
+to view them at http://localhost:3000/projects/my-docs/1.0.0
 
 ## Contributing
 
