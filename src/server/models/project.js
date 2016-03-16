@@ -1,10 +1,11 @@
 'use strict';
 
-var _     = require('lodash');
-var fs    = require('fs-extra');
-var path  = require('path');
-var Boom  = require('boom');
-var targz = require('tar.gz');
+var _      = require('lodash');
+var fs     = require('fs-extra');
+var path   = require('path');
+var Boom   = require('boom');
+var targz  = require('tar.gz');
+var semver = require('semver');
 
 var UPLOAD_DIR  = path.resolve(__dirname, '..', '..', '..', 'public', 'uploads');
 var PROJECT_DIR = path.resolve(__dirname, '..', '..', '..', 'public', 'projects');
@@ -141,11 +142,18 @@ module.exports = {
 
 						var sortedFiles = files.sort();
 						var hasLatest = _.contains(sortedFiles, 'latest');
+						var semverFiles = _.filter(sortedFiles, semver.valid);
+						var sortedSemverFiles = semverFiles.sort(semver.lt);
+						var sortedNonSemverFiles = _.filter(sortedFiles, function(file) {
+							return !_.contains(sortedSemverFiles, file);
+						});
+
+						var finalFiles = sortedSemverFiles.concat(sortedNonSemverFiles);
 
 						if (hasLatest) {
-							return resolve(['latest'].concat(_.without(sortedFiles, 'latest')));
+							return resolve(['latest'].concat(_.without(finalFiles, 'latest')));
 						} else {
-							return resolve(files);
+							return resolve(finalFiles);
 						}
 
 					});
