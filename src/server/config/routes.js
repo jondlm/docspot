@@ -9,6 +9,7 @@
 // files, but I wouldn't recommend it unless we have 100+ routes or so.
 
 var Joi = require('joi');
+var settings = require('./settings');
 
 var safeStringSchema = Joi.string()
 	.regex(/^[a-zA-Z0-9\._-]{1,255}$/)
@@ -81,7 +82,8 @@ module.exports = [
 			payload: {
 				output: 'stream',
 				parse: true,
-				allow: 'multipart/form-data'
+				allow: 'multipart/form-data',
+				maxBytes: settings.get('maxUploadBytes')
 			},
 			validate: {
 				payload: {

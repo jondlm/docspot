@@ -1,6 +1,7 @@
 'use strict';
 
 var Project = require('../models/project');
+var log = require('../util/log');
 
 module.exports = {
 
@@ -51,6 +52,12 @@ module.exports = {
 		var projectId = request.payload.projectId;
 		var buildId   = request.payload.buildId;
 		var isLatest  = request.payload.isLatest; // optional
+
+		log.info({
+			projectId: projectId,
+			buildId: buildId,
+			isLatest: isLatest,
+		}, 'projects-controller#create');
 
 		Project.create(projectId, buildId, file, isLatest).then(function() {
 			return reply({
