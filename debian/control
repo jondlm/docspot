@@ -1,0 +1,16 @@
+Source: docspot
+Maintainer: GAP DevOps <gap-devops@appnexus.com>
+Build-Depends: build-essential,
+ debhelper (>= 8.0.0),
+ dh-autoreconf,
+ nodejs (>= 6),
+ nodejs-legacy,
+ appnexus-ca
+
+Package: docspot
+Architecture: any
+Depends: nodejs (>= 6),
+ nodejs-legacy,
+ passenger (>= 5)
+Description: docspot
+ Generic docs server

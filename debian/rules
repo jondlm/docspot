@@ -1,0 +1,46 @@
+#!/usr/bin/make -f
+#export DH_VERBOSE = 1
+
+# Figure out the version by looking at the changelog
+DEBVERS := $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
+VERSION := $(shell echo '$(DEBVERS)' | sed -e 's/^[[:digit:]]*://' -e 's/[~-].*//')
+DESTDIR := $(CURDIR)/debian/docspot
+
+# See http://stackoverflow.com/questions/7459644/why-is-dh-usrlocal-throwing-a-build-error
+# Packages normally aren't supposed to put files under /usr/local/, but since that's AppNexus convention
+# carrying over from CentOS, we skip this check
+override_dh_usrlocal:
+	# Do nothing
+
+override_dh_auto_build:
+	# Custom build step for node
+	npm set registry https://npm.corp.appnexus.com
+	npm set ca null
+	# Get the headers for node-gyp from npm.corp
+	npm install node-headers
+	cp -r node_modules/node-headers $(HOME)/.node-gyp
+	npm install
+	npm run build
+	npm prune --production
+
+override_dh_auto_install:
+	install -d $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
+	mkdir -p $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)/config
+
+	cp package.json $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
+	cp resin.json $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
+	cp app.js $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION)
+
+	for dir in config node_modules public src; do \
+		test -d $$dir && cp -r $$dir $(DESTDIR)/usr/local/adnxs/docspot/$(VERSION); \
+	done
+
+	# log directory
+	install -d $(DESTDIR)/var/log/adnexus/docspot
+
+	# symlink current
+	ln -sfn /usr/local/adnxs/docspot/$(VERSION) $(DESTDIR)/usr/local/adnxs/docspot/current
+
+%:
+	# Run debhelper defaults on the other targets
+	dh $@
