@@ -6,6 +6,7 @@ Build-Depends: build-essential,
  nodejs (>= 6),
  nodejs-legacy,
  appnexus-ca,
+ passenger (>= 5)
 
 Package: docspot
 Architecture: any
