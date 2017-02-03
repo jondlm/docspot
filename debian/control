@@ -5,8 +5,7 @@ Build-Depends: build-essential,
  dh-autoreconf,
  nodejs (>= 6),
  nodejs-legacy,
- appnexus-ca,
- passenger (>= 5)
+ appnexus-ca
 
 Package: docspot
 Architecture: any
