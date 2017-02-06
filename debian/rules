@@ -16,10 +16,8 @@ override_dh_auto_build:
 	# Custom build step for node
 	npm set registry https://npm.corp.appnexus.com
 	npm set ca null
-	# Get the headers for node-gyp from npm.corp
-	npm install node-headers
-	cp -r node_modules/node-headers $(HOME)/.node-gyp
-	npm install
+
+	npm install --no-optional
 	npm run build
 	npm prune --production
 

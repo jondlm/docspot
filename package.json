@@ -42,7 +42,9 @@
     "gulp-less": "^3.0.3",
     "gulp-livereload": "^3.8.0",
     "gulp-plumber": "^1.0.1",
-    "lab": "^5.11.1",
+    "lab": "^5.11.1"
+  },
+  "optionalDependencies": {
     "nodemon": "^1.4.1"
   }
 }
