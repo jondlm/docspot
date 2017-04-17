@@ -54,6 +54,39 @@ describe('set of tests', function () {
 		});
 	});
 
+	it('should reject a POST to /api/projects with buildId of "latest"', function (done) {
+		var randomName = Math.random().toString(32).substring(2);
+		var form = new FormData();
+		var bufferChunks = [];
+
+		form.append('file', fs.createReadStream('./test/fixtures/test.tar.gz'));
+		form.append('buildId', 'latest');
+		form.append('projectId', randomName);
+
+		form.on('data', function (chunk) {
+			bufferChunks.push(new Buffer(chunk));
+		});
+
+		form.on('end', function() {
+			var buffer = new Buffer.concat(bufferChunks); //eslint-disable-line
+
+			var uploadReq = {
+				url: '/api/projects',
+				method: 'post',
+				payload: buffer,
+				headers: form.getHeaders()
+			};
+
+			server.inject(uploadReq, function (res) {
+				assert.equal(res.statusCode, 422);
+				assert.equal(res.result.message, 'buildId cannot be set to "latest"');
+				done();
+			});
+		});
+
+		form.resume();
+	});
+
 	it('should accept a tarball, serve its contents, and allow for deletion', function (done) {
 		var randomName = Math.random().toString(32).substring(2);
 		var form = new FormData();

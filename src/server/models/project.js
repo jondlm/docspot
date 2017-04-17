@@ -59,6 +59,10 @@ module.exports = {
 					return reject(Boom.badData('You must upload a .tar.gz or .tgz file'));
 				}
 
+				if (buildId === 'latest') {
+					return reject(Boom.badData('buildId cannot be set to "latest"'));
+				}
+
 				fs.mkdirs(uploadDir, function(err) {
 					if (err) {
 						return reject(Boom.badImplementation(err));

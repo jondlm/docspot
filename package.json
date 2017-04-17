@@ -9,7 +9,7 @@
     "start": "node ./app.js | bunyan",
     "start-dev": "nodemon ./start.js | bunyan",
     "lint": "eslint src",
-    "test": "bunyan__level=fatal lab && npm run lint"
+    "test": "bunyan__level=fatal lab -I Reflect && npm run lint"
   },
   "repository": {
     "type": "git",
