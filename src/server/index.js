@@ -21,7 +21,7 @@ var server = new Hapi.Server();
 // Apply connection settings to the server
 server.connection({
 	host: '0.0.0.0',
-	port: settings.get('port')
+	port: settings.port
 });
 
 //
@@ -64,7 +64,7 @@ server.register(packs, function(err) {
 		path: path.join(__dirname, 'views'),
 		layoutPath: path.join(__dirname, 'views', 'layouts'),
 		layout: 'default',
-		isCached: settings.get('cacheTemplates')
+		isCached: settings.cacheTemplates
 	});
 
 	//

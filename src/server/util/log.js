@@ -21,5 +21,5 @@
 var bunyan = require('bunyan');
 var settings = require('../config/settings');
 
-module.exports = bunyan.createLogger(settings.get('bunyan'));
+module.exports = bunyan.createLogger(settings.bunyan);
 

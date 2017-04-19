@@ -6,9 +6,10 @@ var path      = require('path');
 var Boom      = require('boom');
 var targz     = require('tar.gz');
 var sortFiles = require('../util/sort').sortFiles;
+var settings  = require('../config/settings');
 
-var UPLOAD_DIR  = path.resolve(__dirname, '..', '..', '..', 'public', 'uploads');
-var PROJECT_DIR = path.resolve(__dirname, '..', '..', '..', 'public', 'projects');
+var UPLOAD_DIR  = settings.uploadsDir;
+var PROJECT_DIR = settings.projectsDir;
 
 module.exports = {
 	/**

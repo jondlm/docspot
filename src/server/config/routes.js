@@ -8,8 +8,9 @@
 // to be huge, it sometimes makes sense to break the routes into their own
 // files, but I wouldn't recommend it unless we have 100+ routes or so.
 
-var Joi = require('joi');
+var Joi      = require('joi');
 var settings = require('./settings');
+var path     = require('path');
 
 var safeStringSchema = Joi.string()
 	.regex(/^[a-zA-Z0-9\._-]{1,255}$/)
@@ -21,7 +22,7 @@ var safeStringSchema = Joi.string()
 // -------------------------------------
 
 var applicationController = require('../controllers/application-controller');
-var projectsController = require('../controllers/projects-controller');
+var projectsController    = require('../controllers/projects-controller');
 
 // Export an array of routes
 module.exports = [
@@ -83,7 +84,7 @@ module.exports = [
 				output: 'stream',
 				parse: true,
 				allow: 'multipart/form-data',
-				maxBytes: settings.get('maxUploadBytes')
+				maxBytes: settings.maxUploadBytes
 			},
 			validate: {
 				payload: {
@@ -137,7 +138,8 @@ module.exports = [
 		method: 'GET',
 		handler: {
 			directory: {
-				path: 'public',
+				// Serve assets from both the public dir and the data dir
+				path: ['public', path.resolve(settings.dataDir)],
 				listing: true
 			}
 		}
