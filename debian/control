@@ -10,7 +10,6 @@ Build-Depends: build-essential,
 Package: docspot
 Architecture: any
 Depends: nodejs (>= 6),
- nodejs-legacy,
- passenger (>= 5)
+ nodejs-legacy
 Description: docspot
  Generic docs server
