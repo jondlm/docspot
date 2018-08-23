@@ -33,7 +33,7 @@
     "mkdirp": "^0.5.1",
     "nconf": "^0.7.1",
     "semver": "^5.1.0",
-    "tar.gz": "^1.0.1",
+    "tar": "^4.4.6",
     "vision": "^3.0.0"
   },
   "devDependencies": {

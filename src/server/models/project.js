@@ -4,7 +4,7 @@ var _         = require('lodash');
 var fs        = require('fs-extra');
 var path      = require('path');
 var Boom      = require('boom');
-var targz     = require('tar.gz');
+var tar       = require('tar');
 var sortFiles = require('../util/sort').sortFiles;
 var settings  = require('../config/settings');
 
@@ -83,7 +83,7 @@ module.exports = {
 								return reject(Boom.badImplementation(mkdirErr));
 							}
 
-							var extract = fs.createReadStream(filename).pipe(targz().createWriteStream(targetDir));
+							var extract = fs.createReadStream(filename).pipe(tar.x({ cwd: targetDir }));
 
 							extract.on('error', function(extractErr) {
 								return reject(Boom.badImplementation(extractErr));
